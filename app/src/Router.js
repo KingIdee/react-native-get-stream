@@ -8,6 +8,9 @@ import AuthScreen from './components/AuthScreen';
 import { TouchableOpacity, Text, View, Dimensions } from 'react-native';
 import Menu from './components/Menu';
 import RegisterScreen from './components/RegisterScreen';
+import { calculateOpacity } from './helper';
+import CreateChannel from './components/CreateChannel';
+import DrawerIcon from './components/Presenters/DrawerIcon';
 
 class RouterComponent extends Component {
 
@@ -40,7 +43,7 @@ class RouterComponent extends Component {
                         />
                         <Scene 
                             drawer={true}
-                            drawerIcon={<View style={{padding: 15, backgroundColor: 'black'}}></View>}
+                            drawerIcon={<DrawerIcon/>}
                             key={'dashboard'}
                             contentComponent={Menu}
                             drawerWidth={Dimensions.get('window').width * 0.7}>
@@ -48,19 +51,36 @@ class RouterComponent extends Component {
                             <Scene
                                 key={'channelList'}
                                 back={false}
-                                navigationBarStyle={{elevation: 0}}
+                                navigationBarStyle={{elevation: 0, backgroundColor: '#3F0E40'}}
                                 hideNavBar={false}
+                                titleStyle={{color: 'white'}}
                                 backButtonTintColor={'white'}
                                 component={ChannelListScreen}
                             />
                             <Scene
                                 key={'channelScreen'}
                                 hideNavBar={false}
-                                title={''}
+                                navigationBarStyle={{elevation: 0, backgroundColor: '#3F0E40'}}
+                                hideNavBar={false}
+                                titleStyle={{color: 'white'}}
+                                backButtonTintColor={'white'}
+                                // title={''}
                                 component={ChannelScreen}
                             />
                             
                         </Scene>
+
+                        <Scene
+                                key={'createChannel'}
+                                hideNavBar={false}
+                                navigationBarStyle={{elevation: 0, backgroundColor: '#3F0E40'}}
+                                hideNavBar={false}
+                                back={true}
+                                titleStyle={{color: 'white'}}
+                                backButtonTintColor={'white'}
+                                title={'Create Channel'}
+                                component={CreateChannel}
+                            />
                       
                         <Scene
                             key={'threadScreen'}

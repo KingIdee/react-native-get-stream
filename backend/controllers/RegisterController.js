@@ -53,7 +53,7 @@ class RegisterController extends BaseController{
             return super.success(res,{user, token, streamToken}, 'Registration Successful');
             
         }catch(error){
-            console.log(error);
+            // console.log(error);
             return super.actionFailure(res, 'Something went wrong')
         }
 

@@ -11,6 +11,7 @@ const INITIAL_STATE = {
     lastName: 'Nwanze',
     firstName: 'Franklin',
     user: {},
+    users: [],
     streamToken: '',
     token: '',
     refreshToken: '',

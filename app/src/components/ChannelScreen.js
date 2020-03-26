@@ -23,7 +23,7 @@ const theme = {
     },
   },
   colors: {
-    primary: 'magenta',
+    primary: '#3F0E40',
   },
   spinner: {
     css: `

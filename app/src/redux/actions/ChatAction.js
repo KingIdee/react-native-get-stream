@@ -15,7 +15,7 @@ export const getChannels = () => {
 
     return dispatch => {
         setLoader(dispatch, true);
-        axios.get('http://192.168.43.118:3000/auth/channels')
+        axios.get('http://192.168.1.127:3000/auth/channels')
             .then(res => {
                 console.log(res.data.data, "channels");
                 dispatch({

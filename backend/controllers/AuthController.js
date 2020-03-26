@@ -46,16 +46,26 @@ class AuthController extends BaseController{
         return super.notFound(res, "Account does not exist");
       }
     }catch(err){
-        console.log(err);
+        // console.log(err);
         return super.unauthorized(res, 'Invalid Credentials 1');
     }
   }
 
   async getUsers(req, res){
     try{
-      let user = await User.find({isActive: true});
-      return super.success(res, user, 'users retrieved');
+      // let users = await User.find({isActive: true});
+      let user = await User.findById(req.body.userId);
+      // const filter = { type: 'messaging', members: { $in: [user.username] }};
+      // const sort = { last_message_at: -1 };
+      const client = new StreamChat(secrets.streamApiKey, secrets.streamSecret);
+      const response = await client.queryUsers({id: { $nin: [user.username] }});
+      // for (const c of response) {
+        // console.log(response);
+        // preChannels.push(c.data);
+    // }
+      return super.success(res, response.users, 'users retrieved');
     }catch(err){
+      console.log(err);
       return super.actionFailure(res, 'Could not get users')
     }
   }
@@ -64,7 +74,7 @@ class AuthController extends BaseController{
     try{
       let user = await User.findById(req.body.userId);
       // , members: { $in: [user.username] } 
-      const filter = { type: 'messaging'};
+      const filter = { type: 'messaging', members: { $in: [user.username] }};
       const sort = { last_message_at: -1 };
       const client = new StreamChat(secrets.streamApiKey, secrets.streamSecret);
       const channels = await client.queryChannels(filter, sort, {
@@ -74,7 +84,7 @@ class AuthController extends BaseController{
       });
       let preChannels = []
       for (const c of channels) {
-        // console.log(c.data, c.data.cid);
+        console.log(c);
         preChannels.push(c.data);
     }
  
